@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:multi_ui/constants.dart';
 import 'package:multi_ui/fooddel/order_confirmed/order_confirmed.dart';
 import 'package:multi_ui/size_config.dart';
+import 'package:multi_ui/fooddel/shipping_addresses/shipping_addresses.dart';
 
 class CheckOut extends StatelessWidget {
   @override
@@ -38,12 +39,17 @@ class CheckOut extends StatelessWidget {
                         fontWeight: FontWeight.w600
                       ),
                     ),
-                    Text(
-                      'Change',
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        color: Color(0XFFE73D47)
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ShippingAddresses()));
+                      },
+                      child: Text(
+                        'Change',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                          color: Color(0XFFE73D47)
+                        ),
                       ),
                     ),
                   ],
@@ -207,12 +213,17 @@ class CheckOut extends StatelessWidget {
                           fontWeight: FontWeight.w600
                       ),
                     ),
-                    Text(
-                      'Change',
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0XFFE73D47)
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ShippingAddresses()));
+                      },
+                      child: Text(
+                        'Change',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0XFFE73D47)
+                        ),
                       ),
                     ),
                   ],

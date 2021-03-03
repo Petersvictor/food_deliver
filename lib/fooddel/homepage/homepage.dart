@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:multi_ui/constants.dart';
 import 'package:multi_ui/fooddel/food_detail/food_detail.dart';
+import 'package:multi_ui/models/product.dart';
 
 class HomePage extends StatelessWidget {
 
@@ -129,8 +130,9 @@ class HomePage extends StatelessWidget {
                   children: [
                     ...List.generate(5, (index){
                       return FoodItem(
+                        product: demoProducts[index],
                         discounted: true,
-                        press: () { Navigator.push(context, MaterialPageRoute(builder: (context) => FoodDetail()));
+                        press: () { Navigator.push(context, MaterialPageRoute(builder: (context) => FoodDetail(product: demoProducts[index])));
                       },);
                     })
                   ],
@@ -142,8 +144,13 @@ class HomePage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ...List.generate(5, (index){
-                      return FoodItem();
+                    ...List.generate(demoProducts.length, (index){
+                      return FoodItem(
+                        product: demoProducts[index],
+                        press: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => FoodDetail(product: demoProducts[index],)));
+                        },
+                      );
                     })
                   ],
                 ),
@@ -412,11 +419,12 @@ class RestaurantCard extends StatelessWidget {
 
 class FoodItem extends StatelessWidget {
   const FoodItem({
-    Key key, this.discounted = false, this.press,
+    Key key, this.discounted = false, this.press, this.product,
   }) : super(key: key);
 
   final bool discounted;
   final GestureTapCallback press;
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -440,7 +448,7 @@ class FoodItem extends StatelessWidget {
                   ),
                   boxShadow: [kDefaultShadow],
                   image: DecorationImage(
-                    image: AssetImage('assets/images/anna-pelzer-IGfIGP5ONV0-unsplash.jpg'),
+                    image: AssetImage(product.image),
                     fit: BoxFit.cover
                   )
                 ),
@@ -460,7 +468,7 @@ class FoodItem extends StatelessWidget {
                       ),
                       child: Center(
                           child: Text(
-                              '-10%',
+                              product.discount.toString() + '%',
                             style: TextStyle(
                               color: Colors.white
                             ),
@@ -489,7 +497,7 @@ class FoodItem extends StatelessWidget {
                                 color: Color(0XFFFFC107),
                               ),
                               Text(
-                                '4.5',
+                                product.rating.toString(),
                                 style: TextStyle(
                                   fontSize: 13,
                                   fontWeight: FontWeight.w600
@@ -510,7 +518,7 @@ class FoodItem extends StatelessWidget {
                 SizedBox(
                   width: 80,
                   child: Text(
-                    'Salmon and Zucchini',
+                    product.title,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500
@@ -519,7 +527,7 @@ class FoodItem extends StatelessWidget {
                 ),
                 Spacer(),
                 Text(
-                  '\$6',
+                  '\$' + product.price.toString(),
                   style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold

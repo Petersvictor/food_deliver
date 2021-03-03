@@ -1,21 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:multi_ui/fooddel/cart/cart_screen.dart';
-
+import 'package:multi_ui/models/product.dart';
 import '../../constants.dart';
 import '../../size_config.dart';
 
 class FoodDetail extends StatelessWidget {
+  final Product product;
+
+  FoodDetail({
+    @required this.product
+});
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: Body()
+      body: Body(product: product,)
     );
   }
 }
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+   final Product product;
+
+  Body({
+    @required this.product
+  });
+
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  int no = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -39,17 +56,22 @@ class Body extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          width: 38,
-                          height: 35,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Center(
-                            child: Icon(
-                              Icons.arrow_back_ios_sharp,
-                              size: 20,
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: 38,
+                            height: 35,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Center(
+                              child: Icon(
+                                Icons.arrow_back_ios_sharp,
+                                size: 20,
+                              ),
                             ),
                           ),
                         ),
@@ -130,7 +152,7 @@ class Body extends StatelessWidget {
                                       SizedBox(
                                         width: 150,
                                         child: Text(
-                                          'Salmon and Zucchini',
+                                          widget.product.title,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 29
@@ -155,7 +177,7 @@ class Body extends StatelessWidget {
                                         size: 32,
                                       ),
                                       Text(
-                                        '4.5',
+                                        widget.product.rating.toString(),
                                         style: TextStyle(
                                           fontSize: 22,
                                         ),
@@ -173,43 +195,57 @@ class Body extends StatelessWidget {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Container(
-                                          height: 49,
-                                          width: 55,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
-                                            color: Color(0XFFE73D47).withOpacity(0.21)
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              '+',
-                                              style: TextStyle(
-                                                fontSize: 25,
-                                                color: Color(0XFF474747)
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              no++;
+                                            });
+                                          },
+                                          child: Container(
+                                            height: 49,
+                                            width: 55,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(10),
+                                              color: Color(0XFFE73D47).withOpacity(0.21)
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                '+',
+                                                style: TextStyle(
+                                                  fontSize: 25,
+                                                  color: Color(0XFF474747)
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
                                         Text(
-                                          '2',
+                                          no.toString(),
                                           style: TextStyle(
                                               fontSize: 25,
                                               color: Color(0XFF474747)
                                           ),
                                         ),
-                                        Container(
-                                          height: 49,
-                                          width: 55,
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10),
-                                              color: Color(0XFFE73D47).withOpacity(0.21)
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              '-',
-                                              style: TextStyle(
-                                                  fontSize: 25,
-                                                  color: Color(0XFF474747)
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              no--;
+                                            });
+                                          },
+                                          child: Container(
+                                            height: 49,
+                                            width: 55,
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(10),
+                                                color: Color(0XFFE73D47).withOpacity(0.21)
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                '-',
+                                                style: TextStyle(
+                                                    fontSize: 25,
+                                                    color: Color(0XFF474747)
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -218,13 +254,31 @@ class Body extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    '\$12.99',
+                                    '\$' + widget.product.price.toString(),
                                     style: TextStyle(
                                       fontSize: 25,
                                       fontWeight: FontWeight.bold
                                     ),
                                   )
                                 ],
+                              ),
+                              SizedBox(height: 20,),
+                              Text(
+                                'Description',
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              SizedBox(height: 5,),
+                              SizedBox(
+                                width: double.infinity,
+                                child: Text(
+                                  widget.product.description,
+                                  style: TextStyle(
+                                    fontSize: 18
+                                  ),
+                                ),
                               ),
                               SizedBox(height: 20,),
                               Text(
@@ -238,25 +292,7 @@ class Body extends StatelessWidget {
                               SizedBox(
                                 width: double.infinity,
                                 child: Text(
-                                  'Mixed with few meat and some other stuffs to prepare this sweet delicious salmon meal. Eat and Enjoy!!',
-                                  style: TextStyle(
-                                    fontSize: 18
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 20,),
-                              Text(
-                                'Reviews',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              SizedBox(height: 5,),
-                              SizedBox(
-                                width: double.infinity,
-                                child: Text(
-                                  'Mixed with few meat and some other stuffs to prepare this sweet delicious salmon meal. Eat and Enjoy!!',
+                                  widget.product.ingredients,
                                   style: TextStyle(
                                       fontSize: 18
                                   ),
