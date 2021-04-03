@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:multi_ui/constants.dart';
 import 'package:multi_ui/fooddel/homepage/homepage.dart';
+import 'package:multi_ui/fooddel/unboard/unboard_screen.dart';
 import 'package:multi_ui/size_config.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:multi_ui/theme.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,16 +15,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        textTheme: GoogleFonts.nunitoSansTextTheme(
-          Theme.of(context).textTheme,
-        ),
-      ),
-      home: MyHomePage(),
+    return ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      builder: (context, _) {
+        final themeProvider = Provider.of<ThemeProvider>(context);
+        return MaterialApp(
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          themeMode: themeProvider.themeMode,
+          theme: lightThemeData(context),
+          darkTheme: darkThemeData(context),
+          home: MyHomePage(),
+        );
+      },
+
     );
   }
 }
@@ -38,7 +45,7 @@ class MyHomePage extends StatelessWidget {
             children: [
               Selector(
                 press: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => UnboardScreen()));
                 },
                 title: 'Food Delivery App',
               ),
@@ -68,9 +75,9 @@ class Selector extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 10),
         child: Container(
           height: 50,
-          width: double.infinity - 20,
+          width: double.infinity,
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).scaffoldBackgroundColor,
               boxShadow: [kDefaultShadow],
               borderRadius: BorderRadius.circular(10)
           ),
@@ -79,7 +86,7 @@ class Selector extends StatelessWidget {
               title,
               style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  fontSize: 24
+                  fontSize: getProportionateScreenWidth(24)
               ),
             ),
           ),

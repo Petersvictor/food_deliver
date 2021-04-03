@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:multi_ui/fooddel/cart/cart_screen.dart';
+import 'package:multi_ui/fooddel/components/default_buttons.dart';
+import 'package:multi_ui/fooddel/components/review_box.dart';
+import 'package:multi_ui/fooddel/homepage/homepage.dart';
+import 'package:multi_ui/fooddel/reviews/reviews_screen.dart';
 import 'package:multi_ui/models/product.dart';
 import '../../constants.dart';
 import '../../size_config.dart';
+import 'package:multi_ui/fooddel/restaurant_detail/restaurant_detail.dart';
 
 class FoodDetail extends StatelessWidget {
   final Product product;
@@ -43,11 +48,11 @@ class _BodyState extends State<Body> {
               overflow: Overflow.visible,
               children: [
                 Container(
-                  height: 50/100 * SizeConfig.screenHeight,
+                  height: 45/100 * SizeConfig.screenHeight,
                   width: double.infinity,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/images/anna-pelzer-IGfIGP5ONV0-unsplash.jpg'),
+                          image: AssetImage(widget.product.image),
                           fit: BoxFit.cover
                       )
                   ),
@@ -64,56 +69,63 @@ class _BodyState extends State<Body> {
                             width: 38,
                             height: 35,
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.surface,
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: Center(
                               child: Icon(
                                 Icons.arrow_back_ios_sharp,
                                 size: 20,
+                                color: Theme.of(context).hintColor,
                               ),
                             ),
                           ),
                         ),
                         Spacer(),
-                        Container(
-                          width: 38,
-                          height: 35,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Center(
-                            child: Stack(
-                              overflow: Overflow.visible,
-                              children: [
-                                Icon(
-                                  Icons.shopping_cart,
-                                  size: 20,
-                                ),
-                                Positioned(
-                                  right: -7,
-                                  top: -5,
-                                  child: Container(
-                                    height: 13,
-                                    width: 13,
-                                    decoration: BoxDecoration(
-                                      color: Color(0XFFE73D47),
-                                      shape: BoxShape.circle
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        '1',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 9,
-                                          fontWeight: FontWeight.w600
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()));
+                          },
+                          child: Container(
+                            width: 38,
+                            height: 35,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.surface,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Center(
+                              child: Stack(
+                                overflow: Overflow.visible,
+                                children: [
+                                  Icon(
+                                    Icons.shopping_cart,
+                                    size: 20,
+                                    color: Theme.of(context).hintColor,
+                                  ),
+                                  Positioned(
+                                    right: -7,
+                                    top: -5,
+                                    child: Container(
+                                      height: 13,
+                                      width: 13,
+                                      decoration: BoxDecoration(
+                                        color: kPrimaryColor,
+                                        shape: BoxShape.circle
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          '1',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: SizeConfig.screenWidth * 0.02,
+                                            fontWeight: FontWeight.w600
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                )
-                              ],
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         )
@@ -122,11 +134,11 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 Positioned(
-                  top: 40/100 * SizeConfig.screenHeight,
+                  top: 30/100 * SizeConfig.screenHeight,
                   child: Container(
                     width: SizeConfig.screenWidth,
                     decoration: BoxDecoration(
-                        color: kPrimaryLightColor,
+                        color: Theme.of(context).scaffoldBackgroundColor,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(30),
                           topRight: Radius.circular(30)
@@ -137,8 +149,8 @@ class _BodyState extends State<Body> {
                         Padding(
                           padding: EdgeInsets.only(
                             top: getProportionateScreenWidth(15),
-                            right: getProportionateScreenWidth(20),
-                            left: getProportionateScreenWidth(20),
+                            right: getProportionateScreenWidth(15),
+                            left: getProportionateScreenWidth(15),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,21 +162,22 @@ class _BodyState extends State<Body> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(
-                                        width: 150,
+                                        width: getProportionateScreenWidth(200),
                                         child: Text(
                                           widget.product.title,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
-                                            fontSize: 29
+                                            fontSize: SizeConfig.screenWidth * 0.06,
+                                              color: Theme.of(context).textSelectionColor
                                           ),
                                         ),
                                       ),
                                       Text(
-                                        'Italian cuisine',
+                                        widget.product.foodType,
                                         style: TextStyle(
                                             fontWeight: FontWeight.w400,
-                                            fontSize: 18,
-                                          color: Color(0XFF686868)
+                                            fontSize: SizeConfig.screenWidth * 0.04,
+                                          color: Theme.of(context).hintColor
                                         ),
                                       ),
                                     ],
@@ -174,24 +187,24 @@ class _BodyState extends State<Body> {
                                       Icon(
                                         Icons.star,
                                         color: Color(0XFFFFC107),
-                                        size: 32,
+                                        size: getProportionateScreenWidth(28),
                                       ),
                                       Text(
                                         widget.product.rating.toString(),
                                         style: TextStyle(
-                                          fontSize: 22,
+                                          fontSize: getProportionateScreenWidth(18),
                                         ),
                                       )
                                     ],
                                   )
                                 ],
                               ),
-                              SizedBox(height: 20,),
+                              SizedBox(height: getProportionateScreenHeight(10),),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   SizedBox(
-                                    width: 150,
+                                    width: getProportionateScreenWidth(150),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
@@ -202,18 +215,18 @@ class _BodyState extends State<Body> {
                                             });
                                           },
                                           child: Container(
-                                            height: 49,
-                                            width: 55,
+                                            height: getProportionateScreenHeight(51),
+                                            width: getProportionateScreenWidth(55),
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
-                                              color: Color(0XFFE73D47).withOpacity(0.21)
+                                              color: kPrimaryColor.withOpacity(0.21)
                                             ),
                                             child: Center(
                                               child: Text(
                                                 '+',
                                                 style: TextStyle(
-                                                  fontSize: 25,
-                                                  color: Color(0XFF474747)
+                                                  fontSize: getProportionateScreenWidth(22),
+                                                    color: Theme.of(context).hintColor
                                                 ),
                                               ),
                                             ),
@@ -222,8 +235,8 @@ class _BodyState extends State<Body> {
                                         Text(
                                           no.toString(),
                                           style: TextStyle(
-                                              fontSize: 25,
-                                              color: Color(0XFF474747)
+                                              fontSize: getProportionateScreenWidth(23),
+                                              color: Theme.of(context).hintColor
                                           ),
                                         ),
                                         GestureDetector(
@@ -233,18 +246,18 @@ class _BodyState extends State<Body> {
                                             });
                                           },
                                           child: Container(
-                                            height: 49,
-                                            width: 55,
+                                            height: getProportionateScreenHeight(51),
+                                            width: getProportionateScreenWidth(55),
                                             decoration: BoxDecoration(
                                                 borderRadius: BorderRadius.circular(10),
-                                                color: Color(0XFFE73D47).withOpacity(0.21)
+                                                color: kPrimaryColor.withOpacity(0.21)
                                             ),
                                             child: Center(
                                               child: Text(
                                                 '-',
                                                 style: TextStyle(
-                                                    fontSize: 25,
-                                                    color: Color(0XFF474747)
+                                                    fontSize: getProportionateScreenWidth(22),
+                                                    color: Theme.of(context).hintColor
                                                 ),
                                               ),
                                             ),
@@ -256,17 +269,17 @@ class _BodyState extends State<Body> {
                                   Text(
                                     '\$' + widget.product.price.toString(),
                                     style: TextStyle(
-                                      fontSize: 25,
+                                      fontSize: getProportionateScreenWidth(22),
                                       fontWeight: FontWeight.bold
                                     ),
                                   )
                                 ],
                               ),
-                              SizedBox(height: 20,),
+                              SizedBox(height: getProportionateScreenHeight(10),),
                               Text(
                                 'Description',
                                 style: TextStyle(
-                                  fontSize: 22,
+                                  fontSize: SizeConfig.screenWidth * 0.05,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -276,38 +289,34 @@ class _BodyState extends State<Body> {
                                 child: Text(
                                   widget.product.description,
                                   style: TextStyle(
-                                    fontSize: 18
+                                    fontSize: SizeConfig.screenWidth * 0.038,
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 20,),
+                              SizedBox(height: 5,),
                               Text(
-                                'Ingredients',
+                                'Reviews',
                                 style: TextStyle(
-                                  fontSize: 22,
+                                  fontSize: SizeConfig.screenWidth * 0.05,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                               SizedBox(height: 5,),
-                              SizedBox(
-                                width: double.infinity,
-                                child: Text(
-                                  widget.product.ingredients,
-                                  style: TextStyle(
-                                      fontSize: 18
-                                  ),
-                                ),
-                              )
+                              ReviewBox(
+                                press: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReviewScreen()));
+                                },
+                              ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(height: getProportionateScreenHeight(15),),
                         Row(
                           children: [
                             Padding(
                               padding:  EdgeInsets.only(left: 10),
                               child: Container(
-                                height: 60,
+                                height: getProportionateScreenHeight(60),
                                 width: 17/100 * SizeConfig.screenWidth,
                                 decoration: BoxDecoration(
                                   color: Color(0XFFE73D47).withOpacity(0.26),
@@ -315,7 +324,7 @@ class _BodyState extends State<Body> {
                                 ),
                                 child: Icon(
                                   Icons.favorite,
-                                  size: 30,
+                                  size: getProportionateScreenWidth(30),
                                   color: Color(0XFFE73D47),
                                 ),
                               ),
@@ -326,7 +335,7 @@ class _BodyState extends State<Body> {
                                 addMediaModal(context);
                               },
                               child: Container(
-                                height: 60,
+                                height: getProportionateScreenHeight(60),
                                 width: 75/100 * SizeConfig.screenWidth,
                                 decoration: BoxDecoration(
                                   color: Color(0XFFE73D47),
@@ -339,7 +348,7 @@ class _BodyState extends State<Body> {
                                   child: Text(
                                     'Add to Cart',
                                     style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: getProportionateScreenWidth(19),
                                       color: Colors.white
                                     ),
                                   ),
@@ -371,7 +380,7 @@ addMediaModal(context) {
           height: SizeConfig.screenHeight /2,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.surface,
             boxShadow: [kDefaultShadow],
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30),
@@ -381,48 +390,24 @@ addMediaModal(context) {
           child: Column(
             children: [
               SvgPicture.asset('assets/svgs/addedtocart.svg', fit: BoxFit.cover,),
-              SizedBox(height: 10,),
+              SizedBox(height: getProportionateScreenHeight(10),),
               Text(
                 'Added to cart',
                 style: TextStyle(
                   color: Color(0XFFE73D47),
-                  fontSize: 25,
+                  fontSize: SizeConfig.screenWidth * 0.05,
                   fontWeight: FontWeight.w600
                 ),
               ),
-              SizedBox(height: 20,),
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()));
-                    },
-                    child: Container(
-                      height: 60,
-                      width: 75/100 * SizeConfig.screenWidth,
-                      decoration: BoxDecoration(
-                          color: Color(0XFFE73D47),
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(40),
-                              bottomRight: Radius.circular(40)
-                          )
-                      ),
-                      child: Center(
-                        child: Text(
-                          'View cart and Check out',
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Spacer(),
-                ],
+              SizedBox(height: getProportionateScreenHeight(20),),
+              DefaultButton(
+                press: () {
+                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()));
+                },
+                text: 'View cart and Check out',
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: getProportionateScreenHeight(20),),
               Row(
                 children: [
                   Spacer(),
@@ -431,10 +416,10 @@ addMediaModal(context) {
                       Navigator.pop(context);
                     },
                     child: Container(
-                      height: 60,
+                      height: getProportionateScreenHeight(60),
                       width: 75/100 * SizeConfig.screenWidth,
                       decoration: BoxDecoration(
-                          color: Color(0XFF222433),
+                          color: Theme.of(context).colorScheme.secondary,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(40),
                               bottomLeft: Radius.circular(40)
@@ -444,7 +429,7 @@ addMediaModal(context) {
                         child: Text(
                           'Continue shopping',
                           style: TextStyle(
-                              fontSize: 20,
+                              fontSize: getProportionateScreenWidth(18),
                               color: Colors.white
                           ),
                         ),

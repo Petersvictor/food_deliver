@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multi_ui/constants.dart';
 import 'package:multi_ui/fooddel/check_out/check_out.dart';
+import 'package:multi_ui/fooddel/components/default_buttons.dart';
 import 'package:multi_ui/size_config.dart';
 
 class CartScreen extends StatelessWidget {
@@ -11,132 +12,120 @@ class CartScreen extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'Cart',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Theme.of(context).textSelectionColor,
+            fontWeight:FontWeight.w400,
+            fontSize: SizeConfig.screenWidth * 0.04,),
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: Theme.of(context).textSelectionColor),
       ),
       body:SafeArea(
-        child: Column(
-          children: [
-            CartItem(),
-            CartItem(),
-            CartItem(),
-            SizedBox(height: 30,),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  Padding(
-                    padding:  EdgeInsets.only(right: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Total Items',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400
-                          ),
-                        ),
-                        Text(
-                          '\$29.0',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 10,),
-                  Padding(
-                    padding: EdgeInsets.only(right: 20),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Added Taxes',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400
-                          ),
-                        ),
-                        Spacer(),
-                        Text(
-                          '\$0.20',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 15,),
-                  Divider(
-                    color: Color(0XFFC4C4C4),
-                    thickness: 1,
-                  ),
-                  SizedBox(height: 10,),
-                  Padding(
-                    padding: EdgeInsets.only(right: 20),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Total',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700
-                          ),
-                        ),
-                        Spacer(),
-                        Text(
-                          '\$29.20',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                            color: Color(0XFFE73D47)
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 40,),
-            Row(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding:  EdgeInsets.only(bottom: 15),
+            child: Column(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => CheckOut()));
-                  },
-                  child: Container(
-                    height: 60,
-                    width: 75/100 * SizeConfig.screenWidth,
-                    decoration: BoxDecoration(
-                        color: Color(0XFFE73D47),
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(40),
-                            bottomRight: Radius.circular(40)
-                        )
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Continue',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white
+                CartItem(),
+                CartItem(),
+                CartItem(),
+                SizedBox(height: getProportionateScreenHeight(30),),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding:  EdgeInsets.only(right: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Total Items',
+                              style: TextStyle(
+                                fontSize: SizeConfig.screenWidth * 0.04,
+                                fontWeight: FontWeight.w400,
+                                color: Theme.of(context).hintColor
+                              ),
+                            ),
+                            Text(
+                              '\$29.0',
+                              style: TextStyle(
+                                  fontSize: SizeConfig.screenWidth * 0.04,
+                                  fontWeight: FontWeight.w400,
+                                  color: Theme.of(context).hintColor
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
+                      SizedBox(height: getProportionateScreenWidth(10),),
+                      Padding(
+                        padding: EdgeInsets.only(right: 20),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Added Taxes',
+                              style: TextStyle(
+                                  fontSize: SizeConfig.screenWidth * 0.04,
+                                  fontWeight: FontWeight.w400,
+                                  color: Theme.of(context).hintColor
+                              ),
+                            ),
+                            Spacer(),
+                            Text(
+                              '\$0.20',
+                              style: TextStyle(
+                                  fontSize: SizeConfig.screenWidth * 0.04,
+                                  fontWeight: FontWeight.w400,
+                                  color: Theme.of(context).hintColor
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: getProportionateScreenHeight(15),),
+                      Divider(
+                        color: Theme.of(context).hintColor,
+                        thickness: 1,
+                      ),
+                      SizedBox(height: getProportionateScreenHeight(10),),
+                      Padding(
+                        padding: EdgeInsets.only(right: 20),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Total',
+                              style: TextStyle(
+                                  fontSize: SizeConfig.screenWidth * 0.04,
+                                  fontWeight: FontWeight.w600,
+                                  color: Theme.of(context).textSelectionColor
+                              ),
+                            ),
+                            Spacer(),
+                            Text(
+                              '\$29.20',
+                              style: TextStyle(
+                                  fontSize: SizeConfig.screenWidth * 0.04,
+                                  fontWeight: FontWeight.w600,
+                                color: kPrimaryColor
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Spacer(),
+                SizedBox(height: getProportionateScreenHeight(40),),
+                DefaultButton(
+                  press: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CheckOut()));
+                  },
+                  text: 'Continue',
+                )
               ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -153,18 +142,18 @@ class CartItem extends StatelessWidget {
     return Padding(
       padding:  EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Container(
-        height: 124,
+        height: SizeConfig.screenHeight * 0.165,
         width: SizeConfig.screenWidth,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.surface,
           boxShadow: [kDefaultShadow],
           borderRadius: BorderRadius.circular(10)
         ),
         child: Row(
           children: [
             Container(
-              height: 124,
-              width: 118,
+              height: SizeConfig.screenHeight * 0.165,
+              width: getProportionateScreenWidth(118),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10),
@@ -176,7 +165,7 @@ class CartItem extends StatelessWidget {
                 )
               ),
             ),
-            SizedBox(width: 10,),
+            SizedBox(width: getProportionateScreenHeight(10),),
             Padding(
               padding:  EdgeInsets.symmetric(vertical: 10),
               child: Column(
@@ -186,54 +175,55 @@ class CartItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: 118,
+                        width: getProportionateScreenWidth(118),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Salmon and Zucchini',
                               style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600
+                                fontSize: SizeConfig.screenWidth * 0.045,
+                                fontWeight: FontWeight.w500,
+                                color: Theme.of(context).textSelectionColor
                               ),
                             ),
                             Text(
                               'Italian Chaffeur',
                               style: TextStyle(
                                   fontWeight: FontWeight.w400,
-                                  fontSize: 15,
-                                  color: Color(0XFF686868)
+                                  fontSize: SizeConfig.screenWidth * 0.035,
+                                  color: Theme.of(context).hintColor
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(width: SizeConfig.screenWidth / 4,),
-                      Icon(Icons.close),
+                      SizedBox(width: getProportionateScreenWidth(60),),
+                      Icon(Icons.close, color: Theme.of(context).hintColor,),
                     ],
                   ),
                   Spacer(),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 90,
+                        width: getProportionateScreenWidth(90),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              height: 30,
-                              width: 30,
+                              height: getProportionateScreenWidth(30),
+                              width: getProportionateScreenWidth(30),
                               decoration: BoxDecoration(
-                                  border: Border.all(color: Color(0XFFC4C4C4)),
+                                  border: Border.all(color: Theme.of(context).hintColor),
                                 borderRadius: BorderRadius.circular(3),
                               ),
                               child: Center(
                                 child: Text(
                                   '-',
                                   style: TextStyle(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.w600
+                                      fontSize: SizeConfig.screenWidth * 0.05,
+                                      fontWeight: FontWeight.w500
                                   ),
                                 ),
                               ),
@@ -241,13 +231,13 @@ class CartItem extends StatelessWidget {
                             Text(
                               '2',
                               style: TextStyle(
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 20
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: SizeConfig.screenWidth * 0.05,
                               ),
                             ),
                             Container(
-                              height: 30,
-                              width: 30,
+                              height: getProportionateScreenWidth(30),
+                              width: getProportionateScreenWidth(30),
                               decoration: BoxDecoration(
                                   border: Border.all(color: Color(0XFFC4C4C4)),
                                 borderRadius: BorderRadius.circular(3)
@@ -256,8 +246,8 @@ class CartItem extends StatelessWidget {
                                 child: Text(
                                   '+',
                                   style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w600
+                                      fontSize: SizeConfig.screenWidth * 0.05,
+                                      fontWeight: FontWeight.w500
                                   ),
                                 ),
                               ),
@@ -265,13 +255,12 @@ class CartItem extends StatelessWidget {
                           ],
                         ),
                       ),
-                      // Spacer(),
-                      SizedBox(width: SizeConfig.screenWidth/4,),
+                      SizedBox(width: getProportionateScreenWidth(60),),
                       Text(
                         '\$12.00',
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            fontSize: 20
+                            fontSize: SizeConfig.screenWidth * 0.05,
                         ),
                       )
                     ],
