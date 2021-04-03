@@ -7,7 +7,7 @@ import 'package:multi_ui/constants.dart';
 // Now let's add dark theme on our app
 
 class ThemeProvider extends ChangeNotifier {
-  ThemeMode themeMode =  ThemeMode.dark;
+  ThemeMode themeMode =  ThemeMode.light;
 
   bool get isDarkMode => themeMode == ThemeMode.dark;
 
