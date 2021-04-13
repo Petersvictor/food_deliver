@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multi_ui/models/reviews.dart';
+import 'package:multi_ui/fooddel/models/reviews.dart';
 import 'package:multi_ui/size_config.dart';
 
 class ReviewBox extends StatelessWidget {
@@ -93,6 +93,6 @@ class ReviewUserBox extends StatelessWidget {
             )
         ),
       ),
-    );;
+    );
   }
 }

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:multi_ui/constants.dart';
-import 'package:multi_ui/fooddel/explore/explore.dart';
-import 'package:multi_ui/fooddel/homepage/homepage.dart';
-import 'package:multi_ui/fooddel/notification_screen/notification_screen.dart';
-import 'package:multi_ui/fooddel/profile/profile.dart';
-import 'package:multi_ui/fooddel/splash_screen/splash_screen.dart';
-import 'package:multi_ui/fooddel/wishlist/wishlist.dart';
+import 'package:multi_ui/fooddel/screens/explore/explore.dart';
+import 'package:multi_ui/fooddel/screens/homepage/homepage.dart';
+import 'package:multi_ui/fooddel/screens/notification_screen/notification_screen.dart';
+import 'package:multi_ui/fooddel/screens/profile/profile.dart';
+import 'package:multi_ui/fooddel/screens/wishlist/wishlist.dart';
 import 'package:multi_ui/size_config.dart';
 
 class CustomNavBar extends StatefulWidget {

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multi_ui/constants.dart';
-import 'package:multi_ui/fooddel/homepage/homepage.dart';
-import 'package:multi_ui/fooddel/unboard/unboard_screen.dart';
+import 'package:multi_ui/fooddel/screens/unboard/unboard_screen.dart';
 import 'package:multi_ui/size_config.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:multi_ui/theme.dart';
 import 'package:provider/provider.dart';
 

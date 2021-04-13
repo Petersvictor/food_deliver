@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'size_config.dart';
 
 const kPrimaryColor = Color(0xFFE73D47);
 const kScaffoldColorLight = Color(0xFFFFFFFF);
